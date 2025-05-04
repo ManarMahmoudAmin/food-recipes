@@ -4,7 +4,7 @@ async function getData(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+    //console.log(data);
     BuildCards(data);
   } catch (error) {
     console.log(`an error occured during fetching data ${error}`);
