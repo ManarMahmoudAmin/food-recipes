@@ -1,0 +1,61 @@
+.nav-link {
+  transition: 0.5s;
+}
+.nav-link:hover {
+  color: orange;
+}
+.active {
+  color: #45b649 !important;
+  border-bottom: 2px solid #45b649;
+}
+.hero-text {
+  padding-top: 1rem;
+}
+
+.hero-text h1 {
+  font-size: 5rem;
+}
+.hero-text p {
+  width: 100%;
+}
+.hero-text h1,
+.hero-text h2 {
+  background: linear-gradient(90deg, #ed4264, #ffedbc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.card:hover {
+  transform: translateY(-10px);
+}
+#items h2 {
+  font-size: 4rem;
+  margin-bottom: 4rem;
+  background: linear-gradient(90deg, #f12711, #f5af19);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#footer {
+  height: 20rem;
+  background: linear-gradient(90deg, #dce35b, #45b649);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    background-image: url(/Assets/hero-dish.png);
+    background-position: right;
+    background-repeat: no-repeat;
+  }
+  .hero-text h2 {
+    font-size: 3rem;
+    margin-left: 9rem;
+  }
+  .hero-text p {
+    width: 50%;
+  }
+}
