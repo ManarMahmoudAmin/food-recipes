@@ -17,11 +17,20 @@ function BuildCards(data) {
   data.meals.forEach((element) => {
     const card = document.createElement("div");
     card.className = "col-md-3";
-    card.innerHTML = `<div class="card  shadow-sm bg-light data-bs-toggle="modal" data-bs-target="#exampleModal" ">
+    card.innerHTML = `<div class="card shadow-sm bg-light data-bs-toggle="modal" data-bs-target="#exampleModal" ">
                     <div class="card-body">
                         <img src="${element.strMealThumb}" class="card-img" />
-                        <h5 class="card-title fs-3 mt-4 fw-bold">${element.strMeal}</h5>
-                        <p class="card-text fs-5 mb-3">Country: ${element.strArea}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="card-title overflow-hidden">
+                           <h5 class="card-title fs-3 mt-4 fw-bold">${element.strMeal}</h5>
+                           <p class="card-text fs-5 mb-3"><span>Country: </span> ${element.strArea}</p>
+                          </div>
+                          <div>
+                           <button class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to favourites">
+                            <i class="fa-regular fa-heart"></i>
+                           </button>
+                          </div>
+                         </div>
                     </div>
                 </div>`;
 
@@ -62,3 +71,12 @@ function BuildCards(data) {
     mealsContainer.appendChild(card);
   });
 }
+
+
+// tooltip 
+document.addEventListener('DOMContentLoaded', () => {
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  console.log(tooltipList)
+});
+
