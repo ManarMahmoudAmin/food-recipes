@@ -26,8 +26,8 @@ function BuildCards(data) {
                            <p class="card-text fs-5 mb-3"><span>Country: </span> ${element.strArea}</p>
                           </div>
                           <div>
-                           <button class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to favourites">
-                            <i class="fa-regular fa-heart"></i>
+                           <button class="btn btn-outline-danger add-favourite border-0 fs-3 bg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to favourites">
+                            <i class="fa-regular fa-heart "></i>
                            </button>
                           </div>
                          </div>
@@ -35,14 +35,18 @@ function BuildCards(data) {
                 </div>`;
 
     // add click event to the current card
-    card.addEventListener("click", () => {
-      const modal = new bootstrap.Modal(
-        document.getElementById("exampleModal")
-      );
-      modal.show();
-      let modalTitle = document.querySelector(".modal-title");
-      let modalBody = document.querySelector(".modal-body");
-      modalBody.innerHTML = `
+    card.addEventListener("click", (e) => {
+      if (e.target.closest(".add-favourite")) {
+        return;
+      } else {
+        const modal = new bootstrap.Modal(
+          document.getElementById("exampleModal")
+        );
+
+        modal.show();
+        let modalTitle = document.querySelector(".modal-title");
+        let modalBody = document.querySelector(".modal-body");
+        modalBody.innerHTML = `
 
       <div class="d-flex flex-column align-items-center">
                   <img src="${element.strMealThumb}" class="w-50 mb-3" />
@@ -65,6 +69,7 @@ function BuildCards(data) {
                   Click Here</a
                 >
       `;
+      }
     });
 
     // append a child in cards container
@@ -72,11 +77,13 @@ function BuildCards(data) {
   });
 }
 
-
-// tooltip 
-document.addEventListener('DOMContentLoaded', () => {
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-  console.log(tooltipList)
+// tooltip
+document.addEventListener("DOMContentLoaded", () => {
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+  );
+  const tooltipList = [...tooltipTriggerList].map(
+    (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+  );
+  console.log(tooltipList);
 });
-
