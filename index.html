@@ -77,13 +77,33 @@
         id="Search"
         class="h-25 d-flex flex-column justify-content-center align-items-center"
       >
-        <h2 class="pb-4">Search For a Recipe</h2>
-        <div class="d-flex align-items-center mb-5 w-50">
-          <input class="form-control rounded-end-0" />
-          <button class="btn btn-success rounded-start-0">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+        <h2 class="pb-2">Find a Recipe</h2>
+        <p class="pb-4 px-5 text-center text-secondary">tell us what you have in your fridge, and our Recipe Finder will show you what you can make</p>
+        <div  class=" d-flex align-items-center  search-box w-75">
+
+          <i  class="ps-3 text-black-50 fa-solid fa-magnifying-glass"></i>
+          <input type="search" placeholder="Enter ingredient" class=" form-control form-control-lg ps-5 rounded-3" />
+          <!-- <button class="btn  rounded-start-0"> -->
+          <!-- </button> -->
         </div>
+        <div class="autocomplete w-75 mb-4">
+          <ul class="list-group border-top-0  overflow-auto shadow" style="max-height: 300px;">
+
+            <!-- <li class="list-group-item border-top-0 ">list1</li> -->
+
+          </ul>
+        </div>
+        <div id="ingredients"> 
+        <div class="card-body row g-2 mb-5">
+          <!-- <div class="col-sm-auto me-1 ps-3"> W3School<button class="btn close text-secondary p-0  pb-1 border-0">x</button></div>
+          <div class="col-sm-auto me-1 ps-3">Labels <button class="btn close text-secondary p-0  pb-1 border-0">x</button></div>
+          <div class="col-sm-auto me-1 ps-3">Labels <buttonc class="btn close text-secondary p-0  pb-1 border-0">x</buttonc></div>
+          <div class="col-sm-auto me-1 ps-3">Labels <button class="btn close text-secondary p-0  pb-1 border-0">x</buttonc></div>
+          <div class="col-sm-auto me-1 ps-3">Labels <button class="btn close text-secondary p-0  pb-1 border-0">x</button></div>
+          <div class="col-sm-auto me-1 ps-3">Labels <button class="btn close text-secondary p-0 pb-1 border-0">x</button></div> -->
+
+  </div>
+  </div>
       </section>
 
       <!-- items cards -->
@@ -146,8 +166,8 @@
         </div>
       </section>
     </div>
-    <script src="js/home.js"></script>
-    <script src="js/filterAndSearch.js"></script>
+    <script type="module" src="js/home.js"></script>
+    <script type="module" src="js/filterAndSearch.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
   </body>
 </html>

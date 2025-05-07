@@ -1,3 +1,8 @@
+body{
+  --bink-color:#ed4264;
+  --bink-light:#ffedbc;
+
+}
 .nav-link {
   transition: 0.5s;
 }
@@ -20,9 +25,40 @@
 }
 .hero-text h1,
 .hero-text h2 {
-  background: linear-gradient(90deg, #ed4264, #ffedbc);
+  background: linear-gradient(90deg, var(--bink-color), var(--bink-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+/* search */
+.search-box i{
+  position: absolute;
+  z-index: 1;
+}
+.list-group{
+  z-index: 0;
+}
+/* .list-group-item:hover{
+  background-color: lightgray;
+} */
+#ingredients .col-sm-auto{
+  font-size: .9rem;
+  border: 1px var(--bink-color) solid;
+  color: black;
+  cursor:default;
+}
+#ingredients .col-sm-auto .close{
+  visibility: hidden;
+}
+#ingredients .col-sm-auto:hover{
+  background-color: lightgray;
+}
+#ingredients .col-sm-auto:hover .close{
+  /* background-color: lightgray; */
+  visibility: visible;
+}
+.hover_col{
+  background-color: lightgray;
+
 }
 
 .card {

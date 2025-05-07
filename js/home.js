@@ -1,6 +1,6 @@
 const mealsContainer = document.querySelector(".meals-container");
 
-async function getData(url) {
+export async function getData(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -13,8 +13,11 @@ async function getData(url) {
 
 getData("https://www.themealdb.com/api/json/v1/1/search.php?s=");
 
-function BuildCards(data) {
+export function BuildCards(data) {
+  mealsContainer.innerHTML=""
+  // debugger;
   data.meals.forEach((element) => {
+
     const card = document.createElement("div");
     card.className = "col-md-3";
     card.innerHTML = `<div class="card  shadow-sm bg-light data-bs-toggle="modal" data-bs-target="#exampleModal" ">
