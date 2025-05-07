@@ -20,23 +20,36 @@ export function BuildCards(data) {
 
     const card = document.createElement("div");
     card.className = "col-md-3";
-    card.innerHTML = `<div class="card  shadow-sm bg-light data-bs-toggle="modal" data-bs-target="#exampleModal" ">
+    card.innerHTML = `<div class="card shadow-sm bg-light data-bs-toggle="modal" data-bs-target="#exampleModal" ">
                     <div class="card-body">
                         <img src="${element.strMealThumb}" class="card-img" />
-                        <h5 class="card-title fs-3 mt-4 fw-bold">${element.strMeal}</h5>
-                        <p class="card-text fs-5 mb-3">Country: ${element.strArea}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="card-title overflow-hidden">
+                           <h5 class="card-title fs-3 mt-4 fw-bold">${element.strMeal}</h5>
+                           <p class="card-text fs-5 mb-3"><span>Country: </span> ${element.strArea}</p>
+                          </div>
+                          <div>
+                           <button class="btn btn-outline-danger add-favourite border-0 fs-3 bg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to favourites">
+                            <i class="fa-regular fa-heart "></i>
+                           </button>
+                          </div>
+                         </div>
                     </div>
                 </div>`;
 
     // add click event to the current card
-    card.addEventListener("click", () => {
-      const modal = new bootstrap.Modal(
-        document.getElementById("exampleModal")
-      );
-      modal.show();
-      let modalTitle = document.querySelector(".modal-title");
-      let modalBody = document.querySelector(".modal-body");
-      modalBody.innerHTML = `
+    card.addEventListener("click", (e) => {
+      if (e.target.closest(".add-favourite")) {
+        return;
+      } else {
+        const modal = new bootstrap.Modal(
+          document.getElementById("exampleModal")
+        );
+
+        modal.show();
+        let modalTitle = document.querySelector(".modal-title");
+        let modalBody = document.querySelector(".modal-body");
+        modalBody.innerHTML = `
 
       <div class="d-flex flex-column align-items-center">
                   <img src="${element.strMealThumb}" class="w-50 mb-3" />
@@ -59,9 +72,21 @@ export function BuildCards(data) {
                   Click Here</a
                 >
       `;
+      }
     });
 
     // append a child in cards container
     mealsContainer.appendChild(card);
   });
 }
+
+// tooltip
+document.addEventListener("DOMContentLoaded", () => {
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+  );
+  const tooltipList = [...tooltipTriggerList].map(
+    (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+  );
+  console.log(tooltipList);
+});
