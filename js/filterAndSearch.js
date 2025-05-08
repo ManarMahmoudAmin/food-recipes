@@ -356,7 +356,7 @@ async function handleSearchAndFilter() {
     );
     }
     else
-    filteredMeals= await filterByArea();
+    filteredMeals= await filterByArea(selectedArea);
   }
 
   if (selectedCategory && selectedCategory !== "all") {
@@ -366,7 +366,7 @@ async function handleSearchAndFilter() {
     );
   }
   else{
-    filteredMeals= await filterByCategory();
+    filteredMeals= await filterByCategory(selectedCategory);
 
   }
   }
