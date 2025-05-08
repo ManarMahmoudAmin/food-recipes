@@ -237,11 +237,22 @@ async function filterByCategory(category) {
   let response = await fetch(`${baseUrl}/filter.php?c=${category}`);
   response = await response.json();
 
-  console.log(category, "=> ", response.meals);
-  return response;
+
+  const mealIds = response.meals.map(meal => meal.idMeal);
+
+  const fullMealsData = [];
+
+  for (let id of mealIds) {
+    let detailResponse = await fetch(`${baseUrl}/lookup.php?i=${id}`);
+    let detailData = await detailResponse.json();
+
+    if (detailData.meals && detailData.meals[0]) {
+      fullMealsData.push(detailData.meals[0]); 
+    }
+  }
+
+  return { meals: fullMealsData };
 }
-
-
 async function renderCategoriesOptions(){
   let categoryFilter = document.querySelector("#categoryFilter");
   
@@ -284,10 +295,21 @@ async function filterByArea(area) {
   let response = await fetch(`${baseUrl}/filter.php?a=${area}`);
   response = await response.json();
 
-  console.log(area, "=>", response.meals);
-  return response;
-}
+  const mealIds = response.meals.map(meal => meal.idMeal);
 
+  const fullMealsData = [];
+
+  for (let id of mealIds) {
+    let detailResponse = await fetch(`${baseUrl}/lookup.php?i=${id}`);
+    let detailData = await detailResponse.json();
+
+    if (detailData.meals && detailData.meals[0]) {
+      fullMealsData.push(detailData.meals[0]); 
+    }
+  }
+
+  return { meals: fullMealsData };
+}
 async function renderAreaOptions(){
   let areaFilter = document.querySelector("#areaFilter");
   
@@ -360,7 +382,7 @@ async function handleSearchAndFilter() {
   }
 
   if (selectedCategory && selectedCategory !== "all") {
-    if(filteredMeals.meals.length>0){
+    if(searchedData.meals.length>0 || (selectedArea&& selectedArea!="all")){
     filteredMeals.meals = filteredMeals.meals.filter(meal =>
       meal.strCategory?.toLowerCase() === selectedCategory
     );
@@ -380,6 +402,6 @@ async function handleSearchAndFilter() {
 
 
 
-console.log()  
+console.log("filtered meals",filteredMeals)  
 
 }
