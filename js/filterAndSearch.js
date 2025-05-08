@@ -127,27 +127,62 @@ function deleteIngredient(i) {
 
 // <<<<<<< HEAD
 
+  // async function getsearchedData(ingredients) {
+  //   searchedData={meals:[]}
+  //   for (const ingredient of ingredients) {
+        
+  //       let response = await fetch(`${baseUrl}/filter.php?i=${ingredient}`);
+  //       response = await response.json();
+  //       response = await response.meals;
+
+  //       // console.log(response.meals);
+        
+  //       if(searchedData.meals.length==0)
+  //           searchedData.meals= await response;
+  //       else
+  //       {
+  //            searchedData.meals = searchedData.meals.filter(obj1 =>
+  //               response.some(obj2 => obj2.idMeal === obj1.idMeal)
+  //             );
+  //       }
+  //   }
+  // }     
   async function getsearchedData(ingredients) {
-    searchedData={meals:[]}
+    searchedData = { meals: [] };
+  
     for (const ingredient of ingredients) {
-        
-        let response = await fetch(`${baseUrl}/filter.php?i=${ingredient}`);
-        response = await response.json();
-        response = await response.meals;
-
-        // console.log(response.meals);
-        
-        if(searchedData.meals.length==0)
-            searchedData.meals= await response;
-        else
-        {
-             searchedData.meals = searchedData.meals.filter(obj1 =>
-                response.some(obj2 => obj2.idMeal === obj1.idMeal)
-              );
+      let response = await fetch(`${baseUrl}/filter.php?i=${ingredient}`);
+      let filteredMeals = await response.json();
+      if (!filteredMeals.meals) continue;
+  
+      for (const meal of filteredMeals.meals) {
+        let detailResponse = await fetch(`${baseUrl}/lookup.php?i=${meal.idMeal}`);
+        let fullMealData = await detailResponse.json();
+  
+        if (
+          !searchedData.meals.some(
+            (m) => m.idMeal === fullMealData.meals[0].idMeal
+          )
+        ) {
+          searchedData.meals.push(fullMealData.meals[0]);
         }
+      }
     }
-  }     
-
+  
+    // Filter meals to keep only those that appear in all selected ingredients
+    if (ingredients.length > 1) {
+      searchedData.meals = searchedData.meals.filter((meal) =>
+        ingredients.every((ing) =>
+          meal.strInstructions?.toLowerCase().includes(ing.toLowerCase()) ||
+          Object.values(meal)
+            .join(" ")
+            .toLowerCase()
+            .includes(ing.toLowerCase())
+        )
+      );
+    }
+  }
+  
 
   
 // =======
