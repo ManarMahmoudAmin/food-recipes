@@ -19,21 +19,23 @@ body{
 .card{
     width: 50vw;
 }
-.mode hr{
+.model hr{
     
     width: 90%; 
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    margin-bottom: 8px;
+
 }
-.subbmitBtn{
+.submitBtn{
     width: 80%;
     background-color: var(--bink-color);
     color: white;
     font-weight: 500;
     font-size: larger;
 }
-.subbmitBtn:hover{
+.submitBtn:hover{
     background-color: var(--bink-light);
     color: black;
 }

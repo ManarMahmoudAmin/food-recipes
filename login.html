@@ -56,31 +56,20 @@
             <hr  >
             <div class="text-start card-body">
                 <form></form>
-                    <div class="m-3">
-                      <label for="Email-input" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="Email-input"  placeholder="name@email.com" required> 
-                      <div class="invalid-feedback">
-                        this field required and should contain"@"
-                      </div>
-                      <div class="valid-feedback alert alert-success alert-dismissible" role="alert">
-                        looks good
-                        <button type="button" class="btn-close" ></button>
-                      </div>
-                    </div>
-                    <div class="m-3">
-                      <label for="Pass-input" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="Pass-input" placeholder="Create password" required>
-                      <div class="invalid-feedback">
-                        this field required
-                      </div>
-                      <div class="valid-feedback alert alert-success alert-dismissible" role="alert">
-                        looks good
-                        <button type="button" class="btn-close" ></button>
-                      </div>
-                    </div>
-                    
-                    <div class="text-center">
-                    <button type="submit" class="btn subbmitBtn text-center">sign in</button>
+                <div class="m-3">
+                  <label for="Email-input" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="Email-input"  placeholder="name@email.com" required> 
+                  <div class="invalid-feedback ">
+                    "incrroct email or password"
+                  </div>
+                </div>
+                <div class="m-3">
+                  <label for="Pass-input" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="Pass-input" placeholder="Create password" required>
+                  
+                </div>  
+                <div class="text-center">
+                  <button type="submit" id="signin-btn" class="btn submitBtn text-center">sign in</button>
                 </div>
             </form>
             </div>
@@ -91,5 +80,6 @@
           </div>
           
     </section>
+    <script src="js/form.js"></script>
 </body>
 </html>

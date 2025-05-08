@@ -138,7 +138,6 @@ function deleteIngredient(i){
   async function getsearchedData(ingredients) {
     searcedData={meals:[]}
     for (const ingredient of ingredients) {
-        console.log(`${baseUrl}/filter.php?i=${ingredient}`);
         
         let response = await fetch(`${baseUrl}/filter.php?i=${ingredient}`);
         response = await response.json();
