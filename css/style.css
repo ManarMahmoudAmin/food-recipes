@@ -9,6 +9,22 @@ body{
 .nav-link:hover {
   color: orange;
 }
+/* user card */
+.profile-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.user-card {
+  position: fixed;
+  top: 100px;
+  right: 10px;
+  width: 250px;
+  display: none;
+  z-index: 1000;
+}
 .active {
   color: #45b649 !important;
   border-bottom: 2px solid #45b649;

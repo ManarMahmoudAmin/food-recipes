@@ -21,7 +21,7 @@
                     name: userName.value.trim(),
                     email: emailInput.value.trim(),
                     password: passwordInput.value.trim(),
-                    profile: "imgs/persons/unknown.png",
+                    profile: "persons/unknown.png",
                     favouriteitems:[]
                 };
                 console.log(user);
@@ -196,7 +196,7 @@
 //6
 //cookies
 
-function setcookies(name, value, expirationHours) {
+export function setcookies(name, value, expirationHours) {
     const date = new Date();
     date.setTime(date.getTime() + (expirationHours * 60 * 60 * 1000));
     const expires = "expires=" + date.toUTCString();
@@ -209,7 +209,7 @@ function setcookies(name, value, expirationHours) {
     // Note: You cannot restrict access to this file only via cookie settings.
 }
 
-function getcookies(searchedpropetry)
+export function getcookies(searchedpropetry)
 {
     var objects=document.cookie.split(";")
     for(var object of objects)
@@ -228,7 +228,7 @@ function getcookies(searchedpropetry)
 }
 
   
-function get_user_info(user_mail,userList)
+export function get_user_info(user_mail,userList)
 {
     var user={};
     userList.forEach(u => {

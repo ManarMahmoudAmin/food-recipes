@@ -47,7 +47,7 @@
             <li class="nav-item">
               <a class="nav-link fs-5" href="#">Contact Us</a>
             </li>
-            <li class="nav-item fs-5">
+            <li class="nav-item fs-5 ms-5 pt-2" id="user-area">
               <a class="btn btn-outline-primary ms-3" href="login.html"
                 >Sign In</a
               >
@@ -56,6 +56,15 @@
         </div>
       </div>
     </nav>
+    <div class="card user-card shadow" id="userCard">
+      <div class="card-body text-center">
+        <img src="" id="cardImg" class="rounded-circle mb-2" width="120" height="120">
+        <h5 class="card-title" id="cardName"></h5>
+        <p class="card-text text-muted" id="cardEmail"></p>
+        <button class="btn btn-outline-danger btn-sm" id="logoutBtn">log out</button>
+      </div>
+    </div>
+  
     <div class="container-fluid">
       <!-- hero -->
       <section id="hero" class="hero pt-5 pb-5">
