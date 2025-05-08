@@ -99,7 +99,7 @@ body{
 
 @media (min-width: 768px) {
   .hero {
-    background-image: url(/Assets/hero-dish.png);
+    background-image: url(../Assets/hero-dish.png);
     background-position: right;
     background-repeat: no-repeat;
   }
