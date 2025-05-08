@@ -1,4 +1,73 @@
 const mealsContainer = document.querySelector(".meals-container");
+import {setcookies,getcookies,get_user_info } from "./form.js";
+
+(
+  function(){
+    let userList = JSON.parse(localStorage.getItem("userList")) || []; 
+    const authArea = document.getElementById('user-area');
+    const userCard = document.getElementById('userCard');
+    const logoutBtn = document.getElementById('logoutBtn');// Retrieve users from localStorage or initialize an empty array
+    document.addEventListener("DOMContentLoaded", () => {  
+      // setcookies("name","shrouk",1) 
+      // const accountBtns = document.querySelector("#account .account-buttons");
+      // const accountProfile = document.querySelector("#account #myaccount");
+
+      var signInUser=getcookies("signInUser")//to know if user sign in or not if ==null not sign in else return user-email
+      if(!signInUser){
+        authArea.innerHTML = ' <a class="btn btn-outline-primary ms-3" href="login.html">Sign In</a>';
+      }
+      else
+      {
+        var userInfo=JSON.parse(signInUser)
+        console.log(userInfo);
+        // debugger;
+        var u=get_user_info(userInfo,userList)
+        const profileHTML = `
+        <div class="d-flex align-items-center gap-2 position-relative">
+          <img src=${u.profile} alt="User" class="profile-pic" id="profilePic">
+          <span class="fw-bold">${u.name}</span>
+        </div>
+      `;
+      authArea.innerHTML = profileHTML;
+      userCard.querySelector("#cardImg").src=u.profile
+      userCard.querySelector("#cardName").innerText=u.name
+      userCard.querySelector("#cardEmail").innerText=u.email
+
+       
+        // accountName.innerText=u.nam
+        // accountEmail.innerText=u.email
+        // accountImg.src=u.profile
+        document.getElementById('profilePic').addEventListener('click', () => {
+          userCard.style.display = userCard.style.display === 'block' ? 'none' : 'block';
+          var nav=document.querySelector("nav")
+          const nav_pos=nav.getBoundingClientRect()
+          console.log(nav_pos);
+          userCard.style.top=nav_pos.bottom+10+"px"
+          if(window.innerWidth<992)
+            userCard.style.width="95vw"
+          else
+            userCard.style.width="250px"
+        });
+
+  
+
+      }
+  });
+  logoutBtn.addEventListener('click', () => {setcookies("signInUser","",1);window.location.reload()});
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#userCard') && !e.target.closest('#profilePic')) {
+      userCard.style.display = 'none';
+    }
+  });
+  window.addEventListener('resize',()=>{console.log(window.innerWidth);
+    userCard.style.display = 'none';
+  })
+
+}()
+);
+
+
+
 
 export async function getData(url) {
   try {
