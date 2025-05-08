@@ -2,15 +2,16 @@ const baseUrl = "https://www.themealdb.com/api/json/v1/1";
 let arr = [];
 let ingredients = [];
 let searchedData = { meals: [] };
+var filteredMeals={meals:[]};
 var choosedIngredients = [];
 var auto_list = document.querySelector(".autocomplete .list-group");
 var items = auto_list.querySelectorAll("li");
 import { getData, BuildCards } from "./home.js";
 
 
-document.getElementById("areaFilter").addEventListener("change", handleSearchAndFilter());
-document.getElementById("categoryFilter").addEventListener("change", handleSearchAndFilter());
-document.querySelector("input[type=search]").addEventListener("change", handleSearchAndFilter());
+document.getElementById("areaFilter").addEventListener("change",handleSearchAndFilter);
+document.getElementById("categoryFilter").addEventListener("change", handleSearchAndFilter);
+// document.querySelector("input[type=search]").addEventListener("change", handleSearchAndFilter);
 
 
 window.onload = async function() {
@@ -99,13 +100,9 @@ function highlight(i) {
 async function fill_ingredients() {
   var ingreds = document.querySelector("#ingredients .row");
   ingreds.innerHTML = "";
-  if (choosedIngredients.length == 0)
-    getData("https://www.themealdb.com/api/json/v1/1/search.php?s=");
-  else {
-    await getsearchedData(choosedIngredients);
-    console.log("out function", searchedData);
-    BuildCards(searchedData);
-  }
+  await handleSearchAndFilter()
+  console.log("out function", filteredMeals);
+    // BuildCards(searchedData);
   choosedIngredients.forEach((item, ind) => {
     var ingredient = document.createElement("div");
     ingredient.innerHTML = `<span>${item}</span><button onclick="deleteIngredient(${ind})" class="btn close align-self-end text-secondary p-0  pb-1 border-0">x</button>`;
@@ -241,6 +238,7 @@ async function filterByCategory(category) {
   response = await response.json();
 
   console.log(category, "=> ", response.meals);
+  return response;
 }
 
 
@@ -287,6 +285,7 @@ async function filterByArea(area) {
   response = await response.json();
 
   console.log(area, "=>", response.meals);
+  return response;
 }
 
 async function renderAreaOptions(){
@@ -340,6 +339,8 @@ async function filterByIngredient(ingredient) {
 }
 
 async function handleSearchAndFilter() {
+  debugger;
+  filteredMeals={meals:[]}
   const selectedArea = document.getElementById("areaFilter").value.toLowerCase();
   const selectedCategory = document.getElementById("categoryFilter").value.toLowerCase();
   const searchQuery = document.querySelector("input[type=search]").value.toLowerCase();
@@ -347,20 +348,35 @@ async function handleSearchAndFilter() {
   
   await getsearchedData(choosedIngredients); 
 
-  let filteredMeals = searchedData.meals
-
+  filteredMeals = searchedData
   if (selectedArea && selectedArea !== "all") {
-    filteredMeals = filteredMeals.filter(meal =>
+    if(filteredMeals.meals.length>0){
+    filteredMeals.meals = filteredMeals.meals.filter(meal =>
       meal.strArea?.toLowerCase() === selectedArea
     );
+    }
+    else
+    filteredMeals= await filterByArea();
   }
 
   if (selectedCategory && selectedCategory !== "all") {
-    filteredMeals = filteredMeals.filter(meal =>
+    if(filteredMeals.meals.length>0){
+    filteredMeals.meals = filteredMeals.meals.filter(meal =>
       meal.strCategory?.toLowerCase() === selectedCategory
     );
   }
+  else{
+    filteredMeals= await filterByCategory();
 
+  }
+  }
+  if(searchedData.meals.length>0 || (selectedCategory&& selectedCategory!="all") || (selectedArea && selectedArea !== "all")){
+    BuildCards(filteredMeals)
+  }
+  else{
+    getData("https://www.themealdb.com/api/json/v1/1/search.php?s=");
+  }
+  
 
 
 
