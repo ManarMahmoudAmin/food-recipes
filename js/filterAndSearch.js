@@ -148,6 +148,8 @@ function deleteIngredient(i) {
     }
   }     
 
+
+  
 // =======
 // async function getsearchedData(ingredients) {
 //   searchedData = { meals: [] };

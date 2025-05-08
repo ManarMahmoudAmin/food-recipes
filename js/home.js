@@ -67,6 +67,14 @@ export function BuildCards(data) {
                 </div>
                 <h3 class="fs-2">Instructions:</h3>
                 <p class="fs-4">${element.strInstructions}</p>
+
+                  <div>
+                    <h4 class="text-danger"><strong>Ingredients:</strong></h4>
+                    <ul class="p-1 fs-4">
+                      ${getIngredientsList(element)}
+                    </ul>
+                  </div>
+
                 <span class="fs-4 fw-bold">Tutorial :</span>
                 <a href="${element.strYoutube}" class="text-decoration-none fs-4">
                   Click Here</a
@@ -79,6 +87,27 @@ export function BuildCards(data) {
     mealsContainer.appendChild(card);
   });
 }
+
+
+function getIngredientsList(element) {
+  let list = "";
+
+  for (let i = 1; i <= 20; i++) {
+    let ingredient = element[`strIngredient${i}`];
+    let measure = element[`strMeasure${i}`];
+
+    if (ingredient) {
+      ingredient = ingredient.trim();
+      if (ingredient !== "") {
+        list += `<li class="list-unstyled"><i class="fa-solid fa-utensils me-2 text-success"></i>${measure} ${ingredient}</li>`;
+      }
+    }
+  }
+
+  return list;
+}
+
+
 
 // tooltip
 document.addEventListener("DOMContentLoaded", () => {
