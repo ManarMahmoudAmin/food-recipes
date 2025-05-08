@@ -14,10 +14,9 @@ export async function getData(url) {
 getData("https://www.themealdb.com/api/json/v1/1/search.php?s=");
 
 export function BuildCards(data) {
-  mealsContainer.innerHTML=""
+  mealsContainer.innerHTML = "";
   // debugger;
   data.meals.forEach((element) => {
-
     const card = document.createElement("div");
     card.className = "col-md-3";
     card.innerHTML = `<div class="card shadow-sm bg-light data-bs-toggle="modal" data-bs-target="#exampleModal" ">
@@ -53,14 +52,14 @@ export function BuildCards(data) {
 
       <div class="d-flex flex-column align-items-center">
                   <img src="${element.strMealThumb}" class="w-50 mb-3" />
-                  <div class="">
-                    <span class="badge rounded-pill bg-primary text-black fs-4 mx-5"
+                  <div class="d-flex gap-4  mb-3">
+                    <span class="badge rounded-pill bg-primary text-black fs-4 "
                       >${element.strMeal}</span
                     >
-                    <span class="badge rounded-pill bg-danger text-black fs-4 mx-5"
+                    <span class="badge rounded-pill bg-danger text-black fs-4 "
                       >${element.strArea}</span
                     >
-                    <span class="badge rounded-pill bg-warning text-black  fs-4 mx-5"
+                    <span class="badge rounded-pill bg-warning text-black  fs-4 "
                       >${element.strCategory}</span
                     >
                   </div>
@@ -76,7 +75,9 @@ export function BuildCards(data) {
                   </div>
 
                 <span class="fs-4 fw-bold">Tutorial :</span>
-                <a href="${element.strYoutube}" class="text-decoration-none fs-4">
+                <a href="${
+                  element.strYoutube
+                }" class="text-decoration-none fs-4">
                   Click Here</a
                 >
       `;
@@ -87,7 +88,6 @@ export function BuildCards(data) {
     mealsContainer.appendChild(card);
   });
 }
-
 
 function getIngredientsList(element) {
   let list = "";
@@ -106,8 +106,6 @@ function getIngredientsList(element) {
 
   return list;
 }
-
-
 
 // tooltip
 document.addEventListener("DOMContentLoaded", () => {
