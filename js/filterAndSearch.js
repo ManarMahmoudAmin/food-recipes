@@ -8,6 +8,11 @@ var items = auto_list.querySelectorAll("li");
 import { getData, BuildCards } from "./home.js";
 
 
+document.getElementById("areaFilter").addEventListener("change", handleSearchAndFilter());
+document.getElementById("categoryFilter").addEventListener("change", handleSearchAndFilter());
+document.querySelector("input[type=search]").addEventListener("change", handleSearchAndFilter());
+
+
 window.onload = async function() {
   await renderCategoriesOptions();
   await renderAreaOptions();
@@ -181,6 +186,8 @@ function deleteIngredient(i) {
         )
       );
     }
+
+    console.log(searchedData.meals)
   }
   
 
@@ -330,4 +337,33 @@ async function filterByIngredient(ingredient) {
   } catch (error) {
     console.log(error);
   }
+}
+
+async function handleSearchAndFilter() {
+  const selectedArea = document.getElementById("areaFilter").value.toLowerCase();
+  const selectedCategory = document.getElementById("categoryFilter").value.toLowerCase();
+  const searchQuery = document.querySelector("input[type=search]").value.toLowerCase();
+
+  
+  await getsearchedData(choosedIngredients); 
+
+  let filteredMeals = searchedData.meals
+
+  if (selectedArea && selectedArea !== "all") {
+    filteredMeals = filteredMeals.filter(meal =>
+      meal.strArea?.toLowerCase() === selectedArea
+    );
+  }
+
+  if (selectedCategory && selectedCategory !== "all") {
+    filteredMeals = filteredMeals.filter(meal =>
+      meal.strCategory?.toLowerCase() === selectedCategory
+    );
+  }
+
+
+
+
+console.log()  
+
 }
