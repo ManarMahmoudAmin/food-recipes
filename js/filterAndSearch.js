@@ -1,11 +1,18 @@
 const baseUrl = "https://www.themealdb.com/api/json/v1/1";
 let arr = [];
 let ingredients = [];
-let searcedData = { meals: [] };
+let searchedData = { meals: [] };
 var choosedIngredients = [];
 var auto_list = document.querySelector(".autocomplete .list-group");
 var items = auto_list.querySelectorAll("li");
 import { getData, BuildCards } from "./home.js";
+
+
+window.onload = async function() {
+  await renderCategoriesOptions();
+  await renderAreaOptions();
+};
+
 
 (function () {
   fillByIngredients();
@@ -91,8 +98,8 @@ async function fill_ingredients() {
     getData("https://www.themealdb.com/api/json/v1/1/search.php?s=");
   else {
     await getsearchedData(choosedIngredients);
-    console.log("out function", searcedData);
-    BuildCards(searcedData);
+    console.log("out function", searchedData);
+    BuildCards(searchedData);
   }
   choosedIngredients.forEach((item, ind) => {
     var ingredient = document.createElement("div");
@@ -121,7 +128,7 @@ function deleteIngredient(i) {
 // <<<<<<< HEAD
 
   async function getsearchedData(ingredients) {
-    searcedData={meals:[]}
+    searchedData={meals:[]}
     for (const ingredient of ingredients) {
         
         let response = await fetch(`${baseUrl}/filter.php?i=${ingredient}`);
@@ -130,21 +137,20 @@ function deleteIngredient(i) {
 
         // console.log(response.meals);
         
-        if(searcedData.meals.length==0)
-            searcedData.meals= await response;
+        if(searchedData.meals.length==0)
+            searchedData.meals= await response;
         else
         {
-             searcedData.meals = searcedData.meals.filter(obj1 =>
+             searchedData.meals = searchedData.meals.filter(obj1 =>
                 response.some(obj2 => obj2.idMeal === obj1.idMeal)
               );
         }
-        console.log("in function",searcedData);
     }
   }     
 
 // =======
 // async function getsearchedData(ingredients) {
-//   searcedData = { meals: [] };
+//   searchedData = { meals: [] };
 //   for (const ingredient of ingredients) {
 //     console.log(`${baseUrl}/filter.php?i=${ingredient}`);
 
@@ -161,11 +167,11 @@ function deleteIngredient(i) {
 //       let fullMealData = await detailResponse.json();
 
 //       if (
-//         !searcedData.meals.some(
+//         !searchedData.meals.some(
 //           (m) => m.idMeal === fullMealData.meals[0].idMeal
 //         )
 //       ) {
-//         searcedData.meals.push(fullMealData.meals[0]);
+//         searchedData.meals.push(fullMealData.meals[0]);
 //       }
 // >>>>>>> ea0cebddf9bc2cd56b1a97b11e39a04a285ca33c
    
@@ -193,6 +199,26 @@ async function filterByCategory(category) {
   console.log(category, "=> ", response.meals);
 }
 
+
+async function renderCategoriesOptions(){
+  let categoryFilter = document.querySelector("#categoryFilter");
+  
+  // let defaultOption = document.createElement("option");
+  // defaultOption.textContent = "All Categories";
+  // defaultOption.value = "all"
+  // categoryFilter.appendChild(defaultOption);
+  
+  let categories = await getCategories();
+  
+  categories.forEach(category => {
+  let option = document.createElement("option");
+  option.textContent = category.strCategory;
+  option.value = category.strCategory.toLowerCase();
+  categoryFilter.appendChild(option);
+  })
+  
+  }
+
 // fillByCategories()
 
 //area functions
@@ -218,6 +244,25 @@ async function filterByArea(area) {
 
   console.log(area, "=>", response.meals);
 }
+
+async function renderAreaOptions(){
+  let areaFilter = document.querySelector("#areaFilter");
+  
+  // let defaultOption = document.createElement("option");
+  // defaultOption.textContent = "All Areas";
+  // defaultOption.value = "all";
+  // areaFilter.appendChild(defaultOption);
+  
+  let area = await getArea();
+  
+  area.forEach(area => {
+  let option = document.createElement("option");
+  option.textContent = area.strArea;
+  option.value = area.strArea.toLowerCase();
+  areaFilter.appendChild(option);
+  })
+  }
+
 
 //fillByArea()
 
